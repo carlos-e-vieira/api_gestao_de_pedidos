@@ -20,9 +20,15 @@ class ClienteController extends Controller
         return response()->json($clientes, 200);
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        return 'store';
+        $request->validate($this->cliente->rules(), $this->cliente->feedback());
+        $cliente = $this->cliente->create([
+            'name' => $request->name,
+            'cpf' => $request->cpf
+        ]);
+
+        return response()->json($cliente, 201);
     }
 
     public function show($id)
