@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 class Cliente extends Model
 {
@@ -14,7 +15,7 @@ class Cliente extends Model
     {
         return [
             'name' => 'required|min:3|max:30',
-            'cpf' => 'required|unique|min:14|max:14'
+            'cpf' => 'required|', Rule::unique('clientes')->ignore($this->id, 'id')
         ];
     }
 
