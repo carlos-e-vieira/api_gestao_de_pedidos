@@ -42,9 +42,34 @@ class ClienteController extends Controller
         return response()->json($cliente, 200);
     }
 
-    public function update()
+    public function update(Request $request, $id)
     {
-        return 'update';
+        $cliente = $this->cliente->find($id);
+
+        if ($cliente === null) {
+            return response()->json(['success' => false], 404);
+        }
+
+        if ($request->method() === 'PUT') {
+            $request->validate($this->cliente->rules(), $this->cliente->feedback());
+        }
+
+        if ($request->method() === 'PATCH') {
+            $dinamicsRules = array();
+
+            foreach ($cliente->rules() as $input => $rule) {
+                if (array_key_exists($input, $request->all())) {
+                    $dinamicsRules[$input] = $rule;
+                }
+            }
+
+            $request->validate($dinamicsRules, $this->cliente->feedback());
+        }
+
+        $cliente->fill($request->all());
+        $cliente->save();
+
+        return response()->json($cliente, 200);
     }
 
     public function destroy()

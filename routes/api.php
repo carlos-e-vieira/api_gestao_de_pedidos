@@ -23,4 +23,6 @@ Route::prefix('v1')->group(function () {
     Route::get('cliente', [ClienteController::class, 'index']);
     Route::post('cliente', [ClienteController::class, 'store']);
     Route::get('cliente/{id}', [ClienteController::class, 'show']);
+    Route::put('cliente/{id}', [ClienteController::class, 'update']);
+    Route::patch('cliente/{id}', [ClienteController::class, 'update']);
 });
