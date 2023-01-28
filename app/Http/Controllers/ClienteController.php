@@ -33,7 +33,13 @@ class ClienteController extends Controller
 
     public function show($id)
     {
-        return 'show';
+        $cliente = $this->cliente->find($id);
+
+        if ($cliente === null) {
+            return response()->json(['success' => false], 404);
+        }
+
+        return response()->json($cliente, 200);
     }
 
     public function update()
