@@ -72,8 +72,15 @@ class ClienteController extends Controller
         return response()->json($cliente, 200);
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        return 'destry';
+        $cliente = $this->cliente->find($id);
+
+        if ($cliente === null) {
+            return response()->json(['success' => false], 404);
+        }
+
+        $cliente->delete();
+        return response()->json(['success' => true], 200);
     }
 }
