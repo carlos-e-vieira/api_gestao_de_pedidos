@@ -19,7 +19,7 @@ abstract class AbstractRepository
         $this->model = $this->model->with($atributos);
     }
 
-    public function filtros($filtros)
+    public function selectFiltros($filtros)
     {
         $filtros = explode(';', $filtros);
 
@@ -37,5 +37,10 @@ abstract class AbstractRepository
     public function getResultado()
     {
         return $this->model->get();
+    }
+
+    public function cadastrar($dados)
+    {
+        $this->model->create($dados);
     }
 }

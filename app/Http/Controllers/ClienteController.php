@@ -4,31 +4,44 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use App\Repositories\ClienteRepository;
 
 class ClienteController extends Controller
 {
     private Cliente $cliente;
+    private ClienteRepository $clienteRepository;
 
     public function __construct(Cliente $cliente)
     {
         $this->cliente = $cliente;
+        $this->clienteRepository = new ClienteRepository($this->cliente);
     }
 
     public function index(Request $request)
     {
-        $clientes = $this->cliente->all();
-        return response()->json($clientes, 200);
+        // codição de busca com filtro
+        if ($request->has('filtro')) {
+            $this->clienteRepository->selectFiltros($request->filtro);
+        }
+
+        // condição de busca com atributos
+        if ($request->has('atributos')) {
+            $this->clienteRepository->selectAtributos($request->atributos);
+        }
+
+        return response()->json($this->clienteRepository->getResultado(), 200);
     }
 
     public function store(Request $request)
     {
         $request->validate($this->cliente->rules(), $this->cliente->feedback());
-        $cliente = $this->cliente->create([
+        $cliente = [
             'name' => $request->name,
             'cpf' => $request->cpf
-        ]);
+        ];
+        $this->clienteRepository->cadastrar($cliente);
 
-        return response()->json($cliente, 201);
+        return response()->json(['success' => true], 201);
     }
 
     public function show($id)
