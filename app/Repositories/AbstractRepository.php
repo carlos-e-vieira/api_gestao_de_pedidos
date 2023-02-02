@@ -38,9 +38,4 @@ abstract class AbstractRepository
     {
         return $this->model->get();
     }
-
-    public function cadastrar($dados)
-    {
-        $this->model->create($dados);
-    }
 }

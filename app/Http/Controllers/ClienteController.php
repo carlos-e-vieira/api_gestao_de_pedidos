@@ -39,7 +39,7 @@ class ClienteController extends Controller
             'name' => $request->name,
             'cpf' => $request->cpf
         ];
-        $this->clienteRepository->cadastrar($cliente);
+        $this->cliente->create($cliente);
 
         return response()->json(['success' => true], 201);
     }
