@@ -9,9 +9,10 @@ use Illuminate\Validation\Rule;
 class Cliente extends Model
 {
     use HasFactory;
+    
     protected $fillable = ['nome', 'cpf'];
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'nome' => 'required|min:3|max:30',
@@ -19,7 +20,7 @@ class Cliente extends Model
         ];
     }
 
-    public function feedback()
+    public function feedback(): array
     {
         return [
             'required' => 'O campo :attribute é obrigatório',
