@@ -36,7 +36,7 @@ class ClienteController extends Controller
     {
         $request->validate($this->cliente->rules(), $this->cliente->feedback());
         $cliente = [
-            'name' => $request->name,
+            'nome' => $request->nome,
             'cpf' => $request->cpf
         ];
         $this->cliente->create($cliente);

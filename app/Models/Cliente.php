@@ -9,12 +9,12 @@ use Illuminate\Validation\Rule;
 class Cliente extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'cpf'];
+    protected $fillable = ['nome', 'cpf'];
 
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:30',
+            'nome' => 'required|min:3|max:30',
             'cpf' => 'required|', Rule::unique('clientes')->ignore($this->id, 'id')
         ];
     }
