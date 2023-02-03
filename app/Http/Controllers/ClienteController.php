@@ -41,7 +41,7 @@ class ClienteController extends Controller
         ];
         $this->cliente->create($cliente);
 
-        return response()->json(['success' => true], 201);
+        return response()->json(['success' => true, 'cliente' => $cliente], 201);
     }
 
     public function show($id)
