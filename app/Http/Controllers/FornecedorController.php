@@ -113,4 +113,19 @@ class FornecedorController extends Controller
 
         return response()->json($fornecedor, 200);
     }
+
+    public function destroy($id)
+    {
+        $fornecedor = $this->fornecedor->find($id);
+
+        if ($fornecedor === null) {
+            return response()->json(['success' => false], 404);
+        }
+
+        // Remove o arquivo de imagen antigo
+        Storage::disk('public')->delete($fornecedor->imagem);
+
+        $fornecedor->delete();
+        return response()->json(['success' => true], 200);
+    }
 }
