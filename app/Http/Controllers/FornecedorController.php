@@ -54,4 +54,16 @@ class FornecedorController extends Controller
 
         return response()->json($fornecedor, 201);
     }
+
+    public function show($id)
+    {
+        // adicionando o relacionamento - um fornecedor tem muitos produtos
+        $fornecedor = $this->fornecedor->with('produtos')->find($id);
+
+        if ($fornecedor === null) {
+            return response()->json(['success' => false], 404);
+        }
+
+        return response()->json($fornecedor, 200);
+    }
 }
