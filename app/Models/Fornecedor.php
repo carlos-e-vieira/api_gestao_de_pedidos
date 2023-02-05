@@ -14,7 +14,7 @@ class Fornecedor extends Model
 
     protected $fillable = ['nome', 'imagem'];
 
-    public function rules(): array
+    public function regrasValidacao(): array
     {
         return [
             'nome' => 'required|', Rule::unique('fornecedores')->ignore($this->id, 'id'),
@@ -22,7 +22,7 @@ class Fornecedor extends Model
         ];
     }
 
-    public function feedback(): array
+    public function mensagemValidacao(): array
     {
         return [
             'required' => 'O campo :attribute é obrigatório',
