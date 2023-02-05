@@ -89,7 +89,7 @@ class FornecedorController extends Controller
         if ($request->method() === 'PATCH') {
             $regrasDinamicas = array();
 
-            foreach ($this->fornecedor->regrasValidacao() as $input => $regra) {
+            foreach ($fornecedor->regrasValidacao() as $input => $regra) {
                 if (array_key_exists($input, $request->all())) {
                     $regrasDinamicas[$input] = $regra;
                 }

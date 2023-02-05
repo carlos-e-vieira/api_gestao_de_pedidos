@@ -12,7 +12,7 @@ class Cliente extends Model
     
     protected $fillable = ['nome', 'cpf'];
 
-    public function rules(): array
+    public function regrasValidacao(): array
     {
         return [
             'nome' => 'required|min:3|max:30',
@@ -20,7 +20,7 @@ class Cliente extends Model
         ];
     }
 
-    public function feedback(): array
+    public function mensagemValidacao(): array
     {
         return [
             'required' => 'O campo :attribute é obrigatório',

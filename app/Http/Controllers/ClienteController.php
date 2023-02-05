@@ -34,7 +34,11 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate($this->cliente->rules(), $this->cliente->feedback());
+        $request->validate(
+            $this->cliente->regrasValidacao(),
+            $this->cliente->mensagemValidacao()
+        );
+
         $cliente = [
             'nome' => $request->nome,
             'cpf' => $request->cpf
@@ -64,19 +68,22 @@ class ClienteController extends Controller
         }
 
         if ($request->method() === 'PUT') {
-            $request->validate($this->cliente->rules(), $this->cliente->feedback());
+            $request->validate(
+                $this->cliente->regrasValidacao(),
+                $this->cliente->mensagemValidacao()
+            );
         }
 
         if ($request->method() === 'PATCH') {
-            $dinamicsRules = array();
+            $regrasDinamicas = array();
 
-            foreach ($cliente->rules() as $input => $rule) {
+            foreach ($cliente->regrasValidacao() as $input => $regra) {
                 if (array_key_exists($input, $request->all())) {
-                    $dinamicsRules[$input] = $rule;
+                    $regrasDinamicas[$input] = $regra;
                 }
             }
 
-            $request->validate($dinamicsRules, $this->cliente->feedback());
+            $request->validate($regrasDinamicas, $this->cliente->mensagemValidacao());
         }
 
         $cliente->fill($request->all());
