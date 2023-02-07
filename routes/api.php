@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FornecedorController;
+use App\Http\Controllers\ProdutoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,11 @@ Route::prefix('v1')->group(function () {
     Route::put('fornecedor/{id}', [FornecedorController::class, 'update']);
     Route::patch('fornecedor/{id}', [FornecedorController::class, 'update']);
     Route::delete('fornecedor/{id}', [FornecedorController::class, 'destroy']);
+
+    Route::get('produto', [ProdutoController::class, 'index']);
+    Route::post('produto', [ProdutoController::class, 'store']);
+    Route::get('produto/{id}', [ProdutoController::class, 'show']);
+    Route::put('produto/{id}', [ProdutoController::class, 'update']);
+    Route::patch('produto/{id}', [ProdutoController::class, 'update']);
+    Route::delete('produto/{id}', [ProdutoController::class, 'destroy']);
 });
